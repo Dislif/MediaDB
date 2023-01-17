@@ -17,7 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('name_it');
             $table->string('name');
-            $table->string('link_trailer')->default(null);
+            $table->date('release_date');
+            $table->string('link_trailer')->default("ciao");
             $table->timestamps();
         });
     }

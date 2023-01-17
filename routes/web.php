@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\MediaController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,3 +20,19 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('media/index',
+    [App\Http\Controllers\MediaController::class, 'index']
+)->name('media.index');
+
+Route::get('/media/create',
+    [App\Http\Controllers\MediaController::class, 'create']
+)->name('media.create');
+
+Route::post('/media/store',
+[App\Http\Controllers\MediaController::class, 'store']
+)->name('media.store');
+
+Route::get('media/{id}', 
+[App\Http\Controllers\MediaController::class, 'show']
+)->name('media.show');
+
