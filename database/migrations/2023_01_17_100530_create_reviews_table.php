@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('reviews', function (Blueprint $table) {
             $table->id();
-            $table->enum('rating', ['0', '1', '2', '3', '4', '5']);
-            $table->longText('text message');
+            $table->enum('rating', [0, 1, 2, 3, 4, 5]);
+            $table->longText('text_message');
             $table->timestamps();
         });
     }
