@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Media extends Model
 {
     use HasFactory;
+
+    public function genres(){
+        return belongsToMany('App\Models\Genre');
+    }
 }

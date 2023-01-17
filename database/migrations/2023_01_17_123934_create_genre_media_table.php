@@ -13,9 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('roles', function (Blueprint $table) {
+        Schema::create('genre_media', function (Blueprint $table) {
             $table->id();
-            $table->enum('role', ['Admin', 'Guest']);
+            $table->foreignId('genre_id')->constrained('genres');
+            $table->foreignId('media_id')->constrained('media');
             $table->timestamps();
         });
     }
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('roles');
+        Schema::dropIfExists('genre_media');
     }
 };
