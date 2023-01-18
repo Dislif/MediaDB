@@ -17,4 +17,7 @@ class Media extends Model
     public function tags(){
         return $this->belongsToMany('App\Models\Tag');
     }
+    public function actors(){
+        return $this->belongsToMany('App\Models\Actor');
+    }
 }

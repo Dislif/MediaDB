@@ -17,7 +17,7 @@ class TagController extends Controller
         $request->validate([
             'name' => 'required'
         ]);
-        $tag->tag = $request->tag;
+        $tag->name = $request->name;
         $tag->save();
         return redirect()->route('tag.create');
     } 
@@ -32,7 +32,7 @@ class TagController extends Controller
             'name' => 'required'
         ]);
         $tag = Tag::find($tag_id);
-        $tag->tag = $request->tag;
+        $tag->name = $request->tag;
         $tag->save();
         return redirect()->route('tag.create');
     }

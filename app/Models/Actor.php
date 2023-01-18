@@ -10,4 +10,8 @@ class Actor extends Model
 {
     use HasFactory;
     protected $fillable = ['name', 'birthday', 'nationality'];
+
+    public function media(){
+        return $this->belongsToMany('App\Models\Media');
+    }
 }

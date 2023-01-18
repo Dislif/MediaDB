@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Actor;
+use App\Models\Media;
 class ActorController extends Controller
 {
     public function create(){
@@ -46,6 +47,15 @@ class ActorController extends Controller
         $actor = Actor::find($actor_id);
         $actor->delete();
         return redirect()->route('actor.create');
+    }
+
+    public function assign(Request $request, $media_id){
+        $request->validate(['actors_id' => 'required|integer']);
+        $media = Media::find($media_id);
+        $actor = Actor::find($request->actors_id);
+        if (!$media->actors->contains($actor)) {
+            $media->actors()->attach($actor);
+        }
     }
 
     public function __construct(){

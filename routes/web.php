@@ -143,3 +143,7 @@ Route::put('/actor/{id}/update',
 Route::delete('/actor/{id}/destroy',
 [App\Http\Controllers\ActorController::class, 'destroy']
 )->name('actor.destroy');
+Route::post(
+    'actor/{media_id}/assign',
+    [App\Http\Controllers\ActorController::class, 'assign']
+)->name('actor.assign');

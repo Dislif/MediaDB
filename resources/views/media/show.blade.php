@@ -21,7 +21,7 @@
                             $available_tags = App\Models\Tag::all()->diff($media->tags);
                         @endphp
                         @foreach($available_tags as $tag)
-                            <option value='{{$tag->id}}'>{{$tag->tag}}</option>
+                            <option value='{{$tag->id}}'>{{$tag->name}}</option>
                         @endforeach    
                     </select>
                     <button type="submit">submit</button> 
@@ -29,7 +29,28 @@
                     <div>
                         @forelse ($media->tags as $tag)
                             <div>
-                                {{$tag->tag}}
+                                {{$tag->name}}
+                            </div>
+                        @empty
+                            no tag found
+                        @endforelse
+                    </div>
+                    <form action="{{route('actor.assign', $media->id)}}" method="POST">
+                        @csrf
+                    <select name="actors_id" id="actor_id">
+                        @php
+                            $available_actors = App\Models\Actor::all()->diff($media->actors);
+                        @endphp
+                        @foreach($available_actors as $actor)
+                            <option value='{{$actor->id}}'>{{$actor->name}}</option>
+                        @endforeach    
+                    </select>
+                    <button type="submit">submit</button> 
+                    </form>
+                    <div>
+                        @forelse ($media->actors as $actor)
+                            <div>
+                                {{$actor->name}}
                             </div>
                         @empty
                             no tag found
