@@ -40,8 +40,13 @@ class ReviewController extends Controller
         return redirect()->route('review.create');
     }
 
-    public function destroy(Review $review){
+    public function destroy($review_id){
+        $review = Review::find($review_id);
         $review->delete();
         return redirect()->route('review.create');
+    }
+
+    public function __construct(){
+        $this->middleware('auth'); 
     }
 }
