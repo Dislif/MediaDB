@@ -15,7 +15,7 @@ class ReviewController extends Controller
         $review = new Review();
         $request->validate([
             'text_message' => 'required',
-            'rating' => 'required|in:0,1,2,3,4,5',
+            'rating' => 'required|max:5|min:0',
         ]);
         $review->text_message = $request->text_message;
         $review->rating = $request->rating;
@@ -31,7 +31,7 @@ class ReviewController extends Controller
     public function update(Request $request, $review_id){
         $request->validate([
             'text_message' => 'required',
-            'rating' => 'required|in:0,1,2,3,4,5',
+            'rating' => 'required|max:5|min:0',
         ]);
         $review = Review::find($review_id);
         $review->text_message = $request->text_message;
