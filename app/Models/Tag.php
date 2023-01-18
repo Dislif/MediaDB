@@ -8,5 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Tag extends Model
 {
     use HasFactory;
-    protected $fillable = ['tag'];
+    protected $fillable = ['name'];
+
+    public function media(){
+        return $this->belongsToMany('App\Models\Media');
+    }
 }

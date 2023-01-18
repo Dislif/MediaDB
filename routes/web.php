@@ -42,7 +42,6 @@ Route::delete('/reviews/{id}/destory',
     [App\Http\Controllers\ReviewController::class, 'destroy']
 )->name('review.destroy');
 
-
 //Media routes
 Route::get('media/index',
     [App\Http\Controllers\MediaController::class, 'index']
@@ -118,3 +117,29 @@ Route::put('/tags/{id}/update',
 Route::delete('/tags/{id}/destory', 
     [App\Http\Controllers\TagController::class, 'destroy']
 )->name('tag.destroy');
+Route::post(
+    'tag/{media_id}/assign',
+    [App\Http\Controllers\TagController::class, 'assign']
+)->name('tag.assign');
+
+//Actor
+
+Route::get('/actor/create',
+    [App\Http\Controllers\ActorController::class, 'create']
+)->name('actor.create');
+
+Route::post('/actor/store',
+[App\Http\Controllers\ActorController::class, 'store']
+)->name('actor.store');
+
+Route::get('/actor/{id}/edit',
+    [App\Http\Controllers\ActorController::class, 'edit']
+)->name('actor.edit');
+
+Route::put('/actor/{id}/update',
+[App\Http\Controllers\ActorController::class, 'update']
+)->name('actor.update');
+
+Route::delete('/actor/{id}/destroy',
+[App\Http\Controllers\ActorController::class, 'destroy']
+)->name('actor.destroy');

@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Genre extends Model
 {
     use HasFactory;
-    protected $fillable = ['genre'];
+    protected $fillable = ['name'];
 
     public function media(){
-        return belongsToMany('App\Models\Media');
+        return $this->belongsToMany('App\Models\Media');
     }
 }

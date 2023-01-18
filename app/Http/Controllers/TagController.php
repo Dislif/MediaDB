@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Tag;
+use App\Models\Media;
 
 class TagController extends Controller
 {
@@ -14,7 +15,7 @@ class TagController extends Controller
     public function store(Request $request){
         $tag = new Tag();
         $request->validate([
-            'tag' => 'required'
+            'name' => 'required'
         ]);
         $tag->tag = $request->tag;
         $tag->save();
@@ -28,7 +29,7 @@ class TagController extends Controller
 
     public function update(Request $request, $tag_id){
         $request->validate([
-            'tag' => 'required'
+            'name' => 'required'
         ]);
         $tag = Tag::find($tag_id);
         $tag->tag = $request->tag;
@@ -42,6 +43,16 @@ class TagController extends Controller
         return redirect()->route('tag.create');
     }
 
+    public function assign(Request $request, $media_id)
+    {
+        $request->validate(['tags_id' => 'required|integer']);
+        $media = Media::find($media_id);
+        $tag = Tag::find($request->tags_id);
+        if (!$media->tags->contains($tag)) {
+            $media->tags()->attach($tag);
+        }
+        return redirect()->route('media.show', $media_id);
+    }
     public function __construct(){
         $this->middleware('auth'); 
     }

@@ -14,6 +14,27 @@
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
+                    <form action="{{route('tag.assign', $media->id)}}" method="POST">
+                        @csrf
+                    <select name="tags_id" id="tag_id">
+                        @php
+                            $available_tags = App\Models\Tag::all()->diff($media->tags);
+                        @endphp
+                        @foreach($available_tags as $tag)
+                            <option value='{{$tag->id}}'>{{$tag->tag}}</option>
+                        @endforeach    
+                    </select>
+                    <button type="submit">submit</button> 
+                    </form>
+                    <div>
+                        @forelse ($media->tags as $tag)
+                            <div>
+                                {{$tag->tag}}
+                            </div>
+                        @empty
+                            no tag found
+                        @endforelse
+                    </div>
                 </td>
                 </tbody>
     </table>
