@@ -7,4 +7,9 @@
     <textarea name="text_message" id="text_message">{{$review->text_message}}</textarea>
     <button type="submit">Submit</button>
 </form>
+<form action="{{route('review.destroy', $review)}}" method="post">
+    @csrf
+    @method('DELETE')
+    <button type="submit">Delete</button>
+</form>
 @endsection

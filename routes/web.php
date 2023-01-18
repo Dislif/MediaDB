@@ -23,6 +23,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('/reviews/create', [App\Http\Controllers\ReviewController::class, 'create'])->name('review.create');
 Route::post('/reviews/store', [App\Http\Controllers\ReviewController::class, 'store'])->name('review.store');
-
 Route::get('/reviews/{id}/edit', [App\Http\Controllers\ReviewController::class, 'edit'])->name('review.edit');
 Route::put('/reviews/{id}/update', [App\Http\Controllers\ReviewController::class, 'update'])->name('review.update');
+Route::delete('/reviews/{id}/destory', [App\Http\Controllers\ReviewController::class, 'destroy'])->name('review.destroy');
