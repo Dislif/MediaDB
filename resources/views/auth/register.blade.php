@@ -61,6 +61,19 @@
                             </div>
                         </div>
 
+                        <div class="row mb-3">
+                            <label for="role_selector" class="col-md-4 col-form-label text-md-end">Role</label>
+
+                            <div class="col-md-6" id="role_selector" style="display: flex;">
+                                @forelse (App\Models\Role::all() as $role)
+                                    <input type="radio" class="btn-check" name="role" id="{{$role->name}}" value="{{$role->name}}">
+                                    <label class="btn btn-outline-secondary" for="{{$role->name}}">{{$role->name}}</label>
+                                @empty
+                                    <p class="col-md-4 col-form-label text-md-end">No role found</p>
+                                @endforelse
+                            </div>
+                        </div>
+
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
