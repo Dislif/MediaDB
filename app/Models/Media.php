@@ -11,6 +11,10 @@ class Media extends Model
     protected $fillable = ['name_it', 'name', 'link_trailer', 'realease_date'];
 
     public function genres(){
-        return belongsToMany('App\Models\Genre');
+        return $this->belongsToMany('App\Models\Genre');
+    }
+
+    public function tags(){
+        return $this->belongsToMany('App\Models\Tag');
     }
 }
