@@ -36,3 +36,10 @@ Route::get('media/{id}',
 [App\Http\Controllers\MediaController::class, 'show']
 )->name('media.show');
 
+Route::get('media/edit', 
+[App\Http\Controllers\MediaController::class, 'edit']
+)->name('media.edit');
+
+Route::get('media/{id}/update',
+[App\Http\Controllers\MediaController::class, 'update']
+)->name('media.update');
