@@ -42,10 +42,18 @@ Route::get('media/{id}',
 [App\Http\Controllers\MediaController::class, 'show']
 )->name('media.show');
 
-Route::get('media/edit', 
+Route::get('/media/{id}/edit', 
 [App\Http\Controllers\MediaController::class, 'edit']
 )->name('media.edit');
 
-Route::get('media/{id}/update',
+Route::put('media/{id}/update',
 [App\Http\Controllers\MediaController::class, 'update']
 )->name('media.update');
+
+Route::delete('media/{id}/',
+[App\Http\Controllers\MediaController::class, 'destroy']
+)->name('media.destroy');
+
+Route::get('media/{id}/show',
+[App\Http\Controllers\MediaController::class, 'show']
+)->name('media.show');

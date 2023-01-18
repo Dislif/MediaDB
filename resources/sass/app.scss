@@ -6,3 +6,20 @@
 
 // Bootstrap
 @import 'bootstrap/scss/bootstrap';
+
+
+.Films { vertical-align: middle; }
+.Films > :not(:first-child) { border-top: none; }
+.Films thead { background: rgb(238, 238, 238); }
+.mcon{
+    display: flex;
+    flex-direction: column;
+    padding-left: 13px;
+    padding-right: 13px;
+}
+.btn {
+    margin: 3px;
+    width: 65px;
+    display: flex;
+    justify-content: center;
+}
