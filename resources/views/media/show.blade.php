@@ -77,6 +77,15 @@ $available_tags = $tags->diff($media->tags);
                         No genre found 
                     @endif
                 </td>
+                @foreach ($media->reviews as $review)
+                        <div class="card">                        
+                            <div class="card-body">
+                                <p value='{{$review->id}}' class="card-text">{{$review->text_message}}</p>
+                            </div>
+                            
+                        </div>
+
+                @endforeach 
                 </tbody>
     </table>
 </div>
