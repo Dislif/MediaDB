@@ -46,6 +46,15 @@ class ReviewController extends Controller
         return redirect()->route('review.create');
     }
 
+    public function assign(Request $request, $media_id){
+        $request->validate(['review_id' => 'required|integer']);
+        $media = Media::find($media_id);
+        $user = Auth::user();
+        $review = Review::find($request->review_id);
+        $review->media()->attach($media);
+        $review->user()->attach($user);
+    }
+
     public function __construct(){
         $this->middleware('auth'); 
     }

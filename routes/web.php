@@ -147,3 +147,16 @@ Route::post(
     'actor/{media_id}/assign',
     [App\Http\Controllers\ActorController::class, 'assign']
 )->name('actor.assign');
+
+
+
+
+
+
+
+
+
+Route::get('reviews/media/{mediaId}/user/{userId}', [ReviewController::class, 'index'])->name('reviews.index');
+Route::get('reviews/create/media/{mediaId}/user/{userId}', [ReviewController::class, 'create'])->name('reviews.create');
+Route::post('reviews/store/media/{mediaId}/user/{userId}', [ReviewController::class, 'store'])->name('reviews.store');
+

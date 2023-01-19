@@ -75,4 +75,10 @@ class MediaController extends Controller
         $media = Media::Find($media_id);
         return view('media.show')->with('media', $media);
     }
+
+    public function assign(Request $request, $review_id){
+        $review = Review::find($review_id);
+        $media = Media::find($request->media_id);
+        $media->reviews()->attach($review);
+    }
 }
