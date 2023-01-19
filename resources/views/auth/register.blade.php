@@ -66,7 +66,7 @@
 
                             <div class="col-md-6" id="role_selector" style="display: flex;">
                                 @forelse (App\Models\Role::all() as $role)
-                                    <input type="radio" class="btn-check" name="role" id="{{$role->name}}" value="{{$role->name}}">
+                                    <input type="radio" class="btn-check" name="role_id" id="{{$role->name}}" value={{$role->id}}>
                                     <label class="btn btn-outline-secondary" for="{{$role->name}}">{{$role->name}}</label>
                                 @empty
                                     <p class="col-md-4 col-form-label text-md-end">No role found</p>

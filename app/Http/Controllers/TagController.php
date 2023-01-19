@@ -32,7 +32,7 @@ class TagController extends Controller
             'name' => 'required'
         ]);
         $tag = Tag::find($tag_id);
-        $tag->name = $request->tag;
+        $tag->name = $request->name;
         $tag->save();
         return redirect()->route('tag.create');
     }
@@ -53,6 +53,17 @@ class TagController extends Controller
         }
         return redirect()->route('media.show', $media_id);
     }
+
+    public function unassign($media_id, $tag_id)
+    {
+        $media = Media::find($media_id);
+        $tag = Tag::find($tag_id);
+        if ($media->tags->contains($tag)) {
+            $media->tags()->detach($tag);
+        }
+        return redirect()->route('media.show', $media_id);
+    }
+
     public function __construct(){
         $this->middleware('auth'); 
     }

@@ -1,5 +1,11 @@
 @extends('layouts.app')
 @section('content')
+@php
+$genres = App\Models\Genre::all();
+$tags = App\Models\Tag::all();
+$available_genres = $genres->diff($media->genres);
+$available_tags = $tags->diff($media->tags);
+@endphp
 <div class="mcon">
     <table class="Films"> 
         <tbody>
@@ -14,48 +20,62 @@
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
-                    <form action="{{route('tag.assign', $media->id)}}" method="POST">
-                        @csrf
-                    <select name="tags_id" id="tag_id">
-                        @php
-                            $available_tags = App\Models\Tag::all()->diff($media->tags);
-                        @endphp
-                        @foreach($available_tags as $tag)
-                            <option value='{{$tag->id}}'>{{$tag->name}}</option>
-                        @endforeach    
-                    </select>
-                    <button type="submit">submit</button> 
-                    </form>
+
+                    @if($tags->isNotEmpty())
+                    @if ($available_tags->isNotEmpty())
+                        <form action="{{route('tag.assign', $media->id)}}" method="POST">
+                            @csrf
+                            <select name="tags_id" id="tag_id">
+                                @foreach($available_tags as $tag)
+                                    <option value='{{$tag->id}}'>{{$tag->name}}</option>
+                                @endforeach    
+                            </select>
+                            <button type="submit">submit</button> 
+                        </form>
+                    @endif
                     <div>
                         @forelse ($media->tags as $tag)
                             <div>
                                 {{$tag->name}}
+                                <form action="{{route('tag.unassign', [$media, $tag])}}">
+                                    <button type="submit">X</button>
+                                </form>
                             </div>
                         @empty
-                            no tag found
+                            No tag selected
                         @endforelse
                     </div>
-                    <form action="{{route('actor.assign', $media->id)}}" method="POST">
-                        @csrf
-                    <select name="actors_id" id="actor_id">
-                        @php
-                            $available_actors = App\Models\Actor::all()->diff($media->actors);
-                        @endphp
-                        @foreach($available_actors as $actor)
-                            <option value='{{$actor->id}}'>{{$actor->name}}</option>
-                        @endforeach    
-                    </select>
-                    <button type="submit">submit</button> 
-                    </form>
+                    @else
+                        No tag found
+                    @endif
+
+                    @if ($genres->isNotEmpty())
+                    @if ($available_genres->isNotEmpty())
+                        <form action="{{route('genre.assign', $media->id)}}" method="POST">
+                            @csrf
+                            <select name="genre_id" id="genre_id">
+                                @foreach($available_genres as $genre)
+                                    <option value="{{$genre->id}}">{{$genre->name}}</option>
+                                @endforeach    
+                            </select>
+                            <button type="submit">submit</button> 
+                        </form>
+                    @endif
                     <div>
-                        @forelse ($media->actors as $actor)
+                        @forelse ($media->genres as $genre)
                             <div>
-                                {{$actor->name}}
+                                {{$genre->name}}
+                                <form action="{{route('genre.unassign', [$media, $genre])}}">
+                                    <button type="submit">X</button>
+                                </form>
                             </div>
                         @empty
-                            no tag found
+                            No genre selected
                         @endforelse
-                    </div>
+                    </div> 
+                    @else
+                        No genre found 
+                    @endif
                 </td>
                 </tbody>
     </table>

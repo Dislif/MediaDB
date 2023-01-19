@@ -96,6 +96,15 @@ Route::delete('/genres/{id}/destory',
     [App\Http\Controllers\GenreController::class, 'destroy']
 )->name('genre.destroy');
 
+Route::post('/genres/{media_id}/assign', 
+    [App\Http\Controllers\GenreController::class, 'assign']
+)->name('genre.assign');
+
+Route::get(
+    '/genres/{media_id}/{genre_id}/unassign',
+    [App\Http\Controllers\GenreController::class, 'unassign']
+)->name('genre.unassign');
+
 
 //Tags routes
 Route::get('/tags/create', 
@@ -118,12 +127,17 @@ Route::delete('/tags/{id}/destory',
     [App\Http\Controllers\TagController::class, 'destroy']
 )->name('tag.destroy');
 Route::post(
-    'tag/{media_id}/assign',
+    '/tags/{media_id}/assign',
     [App\Http\Controllers\TagController::class, 'assign']
 )->name('tag.assign');
 
-//Actor
+Route::get(
+    '/tag/{media_id}/{tag_id}/unassign',
+    [App\Http\Controllers\TagController::class, 'unassign']
+)->name('tag.unassign');
 
+
+//Actor
 Route::get('/actor/create',
     [App\Http\Controllers\ActorController::class, 'create']
 )->name('actor.create');

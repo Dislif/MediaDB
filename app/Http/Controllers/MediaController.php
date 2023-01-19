@@ -23,12 +23,13 @@ class MediaController extends Controller
         $media->name = $request->name;
         $media->name_it = $request->name_it;
         $media->release_date = $request->release_date;
-        if(is_null($media->link_trailer)){
+        if(is_null($request->link_trailer)){
             $media->link_trailer = '';
         }
         else{
             $media->link_trailer = $request->link_trailer;
         }
+        //dd($media->link_trailer);
         $media->save();
         return redirect()->route('media.index')->with('success','Media created successfully!');
     }
@@ -53,14 +54,11 @@ class MediaController extends Controller
         $media->name_it = $request->name_it;
         $media->name = $request->name;
         $media->release_date = $request->release_date;
-        if(is_null($media->link_trailer)){
+        if(is_null($request->link_trailer)){
             $media->link_trailer = '';
         }
         else{
             $media->link_trailer = $request->link_trailer;
-            if (is_null($media->link_trailer)) {
-                $media->link_trailer = '';
-            }
         }
         $media->save();
         return redirect()->route('media.index');
