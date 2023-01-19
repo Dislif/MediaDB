@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Review;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+
 
 class ReviewController extends Controller
 {
@@ -28,16 +31,26 @@ class ReviewController extends Controller
         return view('review.edit')->with('review', $review);
     }
 
-    public function update(Request $request, $review_id){
-        $request->validate([
-            'text_message' => 'required',
-            'rating' => 'required|max:5|min:0',
-        ]);
+    public function update(Request $request, $review_id) {
+        
         $review = Review::find($review_id);
-        $review->text_message = $request->text_message;
+        
+        if (Auth::user()->id != $review->user->id) {
+            return redirect()->route('media.create');
+        }
+        
+        if (Carbon::now()->diffInHours($review->created_at) < 24) {
+            return redirect()->route('media.index');
+        }
+        
+        $request->validate([
+            'rating' => 'required|integer|between:1,5',
+            'text_message' => 'required|string|max:255',
+        ]);
         $review->rating = $request->rating;
+        $review->text_message = $request->text_message;
         $review->save();
-        return redirect()->route('review.create');
+        return redirect()->route('media.show', $media->id)->with('success', 'review uptade with success');
     }
 
     public function destroy($review_id){
@@ -54,6 +67,7 @@ class ReviewController extends Controller
         $review->media()->attach($media);
         $review->user()->attach($user);
     }
+
 
     public function __construct(){
         $this->middleware('auth'); 
