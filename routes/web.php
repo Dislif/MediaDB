@@ -159,4 +159,8 @@ Route::post(
 Route::get('reviews/media/{mediaId}/user/{userId}', [ReviewController::class, 'index'])->name('reviews.index');
 Route::get('reviews/create/media/{mediaId}/user/{userId}', [ReviewController::class, 'create'])->name('reviews.create');
 Route::post('reviews/store/media/{mediaId}/user/{userId}', [ReviewController::class, 'store'])->name('reviews.store');
+// routes/web.php
 
+Route::put('reviews/{review}',
+    [App\Http\Controllers\ReviewController::class, 'update']
+)->middleware('review.edit.within24hours');
