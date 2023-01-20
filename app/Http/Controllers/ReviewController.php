@@ -35,11 +35,14 @@ class ReviewController extends Controller
         
         $review = Review::find($review_id);
         
-        if (Auth::user()->id != $review->user->id) {
+        /*if (Auth::user()->id != $review->user->id) {
             return redirect()->route('media.create');
-        }
+        }*/
         
         if (Carbon::now()->diffInHours($review->created_at) < 24) {
+            return redirect()->route('media.index');
+        }
+        if (Carbon::now()->diffInHours($review->updated_at) < 24) {
             return redirect()->route('media.index');
         }
         
@@ -50,7 +53,7 @@ class ReviewController extends Controller
         $review->rating = $request->rating;
         $review->text_message = $request->text_message;
         $review->save();
-        return redirect()->route('media.show', $media->id)->with('success', 'review uptade with success');
+        return redirect()->route('media.show', $review->id)->with('success', 'review uptade with success');
     }
 
     public function destroy($review_id){
