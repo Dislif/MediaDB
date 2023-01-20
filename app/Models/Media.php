@@ -22,7 +22,7 @@ class Media extends Model
     }
     public function reviews()
     {
-        return $this->belongsToMany(Review::class,'reviews_media_user','media_id','review_id');
+        return $this->belongsToMany(Review::class,'media_review_user','media_id','review_id');
     }
 
 }

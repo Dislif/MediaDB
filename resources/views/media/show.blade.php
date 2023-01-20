@@ -77,6 +77,22 @@ $available_tags = $tags->diff($media->tags);
                         No genre found 
                     @endif
                 </td>
+                @php
+                $media->reviews = App\Models\Review::all();
+                @endphp
+                <tr>
+                @foreach ($media->reviews as $review)
+                        <div class="card">                        
+                            <div class="card-body">
+                                <p value='{{$review->id}}' class="card-text">{{$review->text_message}}</p>
+                            </div>
+                            
+                        </div>
+                        <form action="{{route('review.edit', $review->id)}}" method="get">
+                            <button type="submit" class="btn btn-primary">Edit</button>
+                            </form>
+                @endforeach
+                 
                 </tbody>
     </table>
 </div>
