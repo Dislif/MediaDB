@@ -23,7 +23,7 @@ class ReviewController extends Controller
         $review->text_message = $request->text_message;
         $review->rating = $request->rating;
         $review->save();
-        return redirect()->route('review.create');
+        return redirect()->route('media.list');
     } 
     
     public function edit($review_id){
@@ -75,4 +75,20 @@ class ReviewController extends Controller
     public function __construct(){
         $this->middleware('auth'); 
     }
+
+    public function averageRating($media_id)
+    {
+        $average = Review::where('media_id', $media_id)->avg('rating');
+        return $average;
+    }
+    public function index()
+    {
+        $medias = Media::all();
+        foreach($medias as $media)
+        {
+            $media->average_rating = $this->averageRating($media->id);
+        }
+        return view('media.list')->with('medias', $medias);
+    }
+
 }
