@@ -39,6 +39,14 @@ Route::delete('/reviews/{id}/destory',
     [App\Http\Controllers\ReviewController::class, 'destroy']
 )->name('review.destroy');
 
+Route::get('/reviews/{id}/avarageRating', 
+    [App\Http\Controllers\ReviewController::class, 'avarageRating']
+)->name('review.avarageRating');
+
+Route::get('/reviews/index', 
+    [App\Http\Controllers\ReviewController::class, 'index']
+)->name('review.index');
+
 //Media routes
 Route::get('media/index',
     [App\Http\Controllers\MediaController::class, 'index']

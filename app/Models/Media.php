@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Media extends Model
 {
     use HasFactory;
-    protected $fillable = ['name_it', 'name', 'link_trailer', 'realease_date'];
+    protected $fillable = ['name_it', 'name', 'link_trailer', 'realease_date', 'avarage_rating'];
 
     public function genres(){
         return $this->belongsToMany('App\Models\Genre');

@@ -8,9 +8,9 @@
 @import 'bootstrap/scss/bootstrap';
 
 
-.Films { vertical-align: middle; }
+.Films { vertical-align: middle;}
 .Films > :not(:first-child) { border-top: none; }
-.Films thead { background: rgb(238, 238, 238); }
+.Films thead { background: rgba(93, 99, 98, 0.158); }
 .mcon{
     display: flex;
     flex-direction: column;
@@ -23,3 +23,130 @@
     display: flex;
     justify-content: center;
 }
+.formflex{
+    display: flex;
+}
+.tagsd {
+    display: flex;
+    flex-direction: column-reverse;
+}
+.butxt{
+    display: flex;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+.minibutton {
+    padding-bottom: 1px;
+    padding-left: 1px;
+    padding-top: 1px;
+    padding-right: 1px;
+    margin-left: 3px;
+    width: 33.6px;
+    border-radius: 50%;
+}
+
+.paolo {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    margin: 8px;
+    width: 50%;
+}
+  
+  button {
+      cursor: pointer;
+      border: none;
+      font-family: 'Comfortaa', cursive;
+      color: rgba(255,255,255,0.5);
+      font-size: 20px;
+      border-radius: 4px;
+      box-shadow: inset 0px 3px 5px rgba(255,255,255,0.5), 0px 0px 10px rgba(0,0,0,0.15);
+      background: rgb(2,0,36);
+  background: linear-gradient(45deg, rgba(2,0,36,0) 5%, rgba(255,255,255,.5) 6%, rgba(255,255,255,0) 9%, rgba(255,255,255,.5) 10%, rgba(255,255,255,0) 17%, rgba(255,255,255,.5) 19%, rgba(255,255,255,0) 21%);
+      background-size: 150%;
+      background-position: right;
+      transition: 1s;
+  }
+  
+  button:hover {
+      background-position: left;
+      color: white;
+      box-shadow: inset 0px 3px 5px rgba(255,255,255,1), 0px 0px 10px rgba(0,0,0,0.25);
+  }
+  
+  button:focus {
+      outline: none;
+  }
+
+  .card {
+    padding: 8px;
+    padding-bottom: 3px;
+    margin: 8px;
+    width: 23%;
+    text-align: center;
+  }
+
+.dflex {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+}
+.stack {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+  
+  .stack span {
+    font-weight: bold;
+    grid-row-start: 1;
+    grid-column-start: 1;
+    font-size: 1.7rem;
+    --stack-height: calc(100% / var(--stacks) - 1px);
+    --inverse-index: calc(calc(var(--stacks) - 1) - var(--index));
+    --clip-top: calc(var(--stack-height) * var(--index));
+    --clip-bottom: calc(var(--stack-height) * var(--inverse-index));
+    clip-path: inset(var(--clip-top) 0 var(--clip-bottom) 0);
+    animation: stack 340ms cubic-bezier(.46,.29,0,1.24) 1 backwards calc(var(--index) * 120ms), glitch 2s ease infinite 2s alternate-reverse;
+  }
+  
+  .stack span:nth-child(odd) { --glitch-translate: 8px; }
+  .stack span:nth-child(even) { --glitch-translate: -8px; }
+  
+  @keyframes stack {
+    0% {
+      opacity: 0;
+      transform: translateX(-50%);
+      text-shadow: -2px 3px 0 red, 2px -3px 0 blue;
+    };
+    60% {
+      opacity: 0.5;
+      transform: translateX(50%);
+    }
+    80% {
+      transform: none;
+      opacity: 1;
+      text-shadow: 2px -3px 0 red, -2px 3px 0 blue;
+    }
+    100% {
+      text-shadow: none;
+    }
+  }
+  
+  @keyframes glitch {
+    0% {
+      text-shadow: -2px 3px 0 red, 2px -3px 0 blue;
+      transform: translate(var(--glitch-translate));
+    }
+    2% {
+      text-shadow: 2px -3px 0 red, -2px 3px 0 blue;
+    }
+    4%, 100% {  text-shadow: none; transform: none; }
+  }
+
+  .special {
+    width: 100px;
+    text-align: center;
+  }
+
+  
