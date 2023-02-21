@@ -46,10 +46,26 @@ class User extends Authenticatable
     public function roles(){
         return $this->belongsTo('App\Models\Role');
     }
+    /*
     public function reviews()
     {
-        return $this->belongsToMany(Review::class,'reviews_media_user','user_id','review_id');
+        return $this->hasMany('App\Models');
     }
-
+    */
+    public function media()
+    {
+        return $this->belongsToMany('App\Models\Media')->using('App\Pivots\Collection');
+    }
+    public function reviews()
+    {
+        return $this->hasManyThrough(
+            'App\Models\Review', 
+            'App\Pivots\Collection', 
+            'user_id', 
+            'collection_id',
+            'id',
+            'id'
+        );
+    }
 
 }

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Media;
 use App\Models\Review;
+use App\Pivots\Collection;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,7 +16,7 @@ class ReviewController extends Controller
         return view('review.create');
     }
 
-    public function store(Request $request){
+    public function store(Request $request, $media_id){
         $review = new Review();
         $request->validate([
             'text_message' => 'required',
@@ -22,8 +24,13 @@ class ReviewController extends Controller
         ]);
         $review->text_message = $request->text_message;
         $review->rating = $request->rating;
+        $collection = Collection::create([
+            'user_id' => Auth::user()->id,
+            'media_id' => intval($media_id),
+        ]);
+        $review->collection_id = $collection->id;
         $review->save();
-        return redirect()->route('review.create');
+        return redirect()->route('media.show', $media_id);
     } 
     
     public function edit($review_id){
@@ -62,13 +69,13 @@ class ReviewController extends Controller
         return redirect()->route('review.create');
     }
 
-    public function assign(Request $request, $media_id){
-        $request->validate(['review_id' => 'required|integer']);
+    public function assign($review_id, $media_id){
         $media = Media::find($media_id);
         $user = Auth::user();
-        $review = Review::find($request->review_id);
-        $review->media()->attach($media);
-        $review->user()->attach($user);
+        $review = Review::find($review_id);
+        $review->user()->attach($user->id, [
+            'media_id' => $media->id
+        ]);
     }
 
 

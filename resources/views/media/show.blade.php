@@ -77,23 +77,59 @@ $available_tags = $tags->diff($media->tags);
                         No genre found 
                     @endif
                 </td>
-                @php
-                $media->reviews = App\Models\Review::all();
-                @endphp
-                <tr>
-                @foreach ($media->reviews as $review)
-                        <div class="card">                        
-                            <div class="card-body">
-                                <p value='{{$review->id}}' class="card-text">{{$review->text_message}}</p>
-                            </div>
-                            
-                        </div>
-                        <form action="{{route('review.edit', $review->id)}}" method="get">
-                            <button type="submit" class="btn btn-primary">Edit</button>
-                            </form>
-                @endforeach
-                 
                 </tbody>
     </table>
+    <h1>Reviews</h1>
+    <div class="revbox">
+        <h3>Reviews</h3>
+        <div class="revs">
+            <div class="secrev">
+                @forelse ($media->reviews as $review)
+                <div class="card rev">
+                    <div class="card-body">
+                        <p  class="card-text">{{$review->text_message}}</p>
+                        <div class="bottomcard">
+                            @if (Auth::user()->id==$review->user_id)
+                            <div class="btns">
+                                <form action="{{route('review.edit', $review->id)}}">
+                                    <button type="submit" class="btn btn-success">Edit</button>
+                                </form>
+                                <form action="{{route('review.destroy', $review->id)}}" method="POST">
+                                    @method('DELETE')
+                                    @csrf
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+                            </div>
+                            @endif
+                            <div>
+                                <label>- 
+                                    @dd($review->user)</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @empty
+                    <p  class="card-text">no reviews found</p>
+                @endforelse
+            </div>
+            <div>
+                <div class="card putrev">
+                    <form class="sec" action="{{route('review.store', $media->id)}}" method="POST">
+                        @csrf
+                        <div>
+                            <div class="secv p-3-custom">   
+                                <label>Description: </label>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                            <div class="p-3">
+                                <textarea name="text_message" id="text_message" class="form-control mb-2" placeholder="Write here a review" rows="6" cols="30"></textarea>
+                            </div>
+                        </div>
+                        <input type="number" name="rating" max="5" min="0">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 @endsection

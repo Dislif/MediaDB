@@ -20,9 +20,21 @@ class Media extends Model
     public function actors(){
         return $this->belongsToMany('App\Models\Actor');
     }
+
     public function reviews()
     {
-        return $this->belongsToMany(Review::class,'media_review_user','media_id','review_id');
+        return $this->hasManyThrough(
+            'App\Models\Review', 
+            'App\Pivots\Collection',
+            'media_id',
+            'collection_id',
+            'id',
+            'id'
+        );
+    }
+    public function users()
+    {
+        return $this->belongsToMany('App\Models\User')->using('App\Pivots\Collection');
     }
 
 }

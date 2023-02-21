@@ -10,12 +10,16 @@ class Review extends Model
     use HasFactory;
     protected $fillable = ['rating', 'text_message'];
 
-    public function media()
+    
+    public function users()
     {
-        return $this->belongsToMany(Media::class,'media_review_user','review_id','media_id');
-    }
-    public function user()
-    {
-        return $this->belongsToMany(User::class,'media_review_user','review_id','user_id');
+        return $this->hasOneThrough(
+            'App\Models\User',
+            'App\Pivots\Collection',
+            'user_id',
+            'collection_id',
+            'id',
+            'id'
+        );
     }
 }
